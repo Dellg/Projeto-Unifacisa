@@ -28,7 +28,7 @@ public class Conta {
 	private double limiteSaqueDiario;
 	
 	@Column(name = "flag_ativo", nullable = false)
-	private Boolean flagAtivo;
+	private boolean flagAtivo;
 
 	@Column(name = "tipo_conta", nullable = false)
 	private Integer tipoConta;

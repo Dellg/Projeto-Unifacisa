@@ -26,6 +26,9 @@ public class Transacao {
 
 	@Column(name = "data_transacao", nullable = false)
 	private Date dataTransacao;
+	
+	@Column(name = "tipo_transacao", nullable = false)
+	private String tipoTransacao;
 
 	// getters e setters
 	public Long getIdTransacao() {
@@ -54,5 +57,12 @@ public class Transacao {
 	}
 	public void setDataTransacao(Date dataTransacao) {
 		this.dataTransacao = dataTransacao;
+	}
+	
+	public String getTipoTransacao() {
+		return tipoTransacao;
+	}
+	public void setTipoTransacao(String tipoTransacao) {
+		this.tipoTransacao = tipoTransacao;
 	}
 }

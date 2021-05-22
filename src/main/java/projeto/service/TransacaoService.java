@@ -8,7 +8,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import projeto.model.Conta;
+import projeto.model.MovimentoConta;
 import projeto.model.Transacao;
+import projeto.repository.ContaRepository;
 import projeto.repository.TransacaoRepository;
 
 @Service
@@ -16,10 +19,58 @@ public class TransacaoService {
 
 	@Autowired
 	private TransacaoRepository transacaoRepository;
-
-	public Transacao cadastrarTransacao(Transacao transacao) {
-		transacaoRepository.save(transacao);
+	
+	@Autowired
+	private ContaRepository contaRepository;
+	
+	public Transacao depositar(MovimentoConta deposito) throws Exception {
+		Transacao transacao = criaTransacaoMovimento(deposito, "Depósito");
+		if (realizaDeposito(transacao))
+			transacaoRepository.save(transacao);
 		return transacao;
+	}
+	
+	public Transacao sacar(MovimentoConta saque) throws Exception {
+		Transacao transacao = criaTransacaoMovimento(saque, "Saque");
+		if (realizaSaque(transacao))
+			transacaoRepository.save(transacao);
+		return transacao;
+	}
+	
+	private Transacao criaTransacaoMovimento(MovimentoConta movimentoConta, String tipoTransacao) throws ParseException {
+		Transacao transacao = new Transacao();
+		transacao.setIdConta(movimentoConta.getIdConta());
+		transacao.setValor(movimentoConta.getValor());
+		transacao.setTipoTransacao(tipoTransacao);
+		
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		String formatado = formato.format(new Date());
+		Date data = formato.parse(formatado);
+		transacao.setDataTransacao(data);
+		return transacao;
+	}
+	
+	private boolean realizaDeposito(Transacao transacao) throws Exception {
+		Conta conta = contaRepository.buscaContaPorIdConta(transacao.getIdConta());
+		if (conta.isFlagAtivo()) {
+			conta.setSaldo(conta.getSaldo() + transacao.getValor());
+			contaRepository.save(conta);
+			return true;
+		} else
+			throw new Exception("A conta está bloqueada!");
+	}
+	
+	private boolean realizaSaque(Transacao transacao) throws Exception {
+		Conta conta = contaRepository.buscaContaPorIdConta(transacao.getIdConta());
+		if (conta.isFlagAtivo()) {
+			if (conta.getSaldo() < transacao.getValor())
+				throw new Exception("Saldo insuficiente! Saldo disponível: " + conta.getSaldo());
+			else {
+				conta.setSaldo(conta.getSaldo() - transacao.getValor());
+				contaRepository.save(conta);
+				return true;
+			}
+		} else throw new Exception("A conta está bloqueada!");
 	}
 	
 	public List<Transacao> buscarPorPeriodo(Long idConta, String dataInicio, String dataFim) throws ParseException {

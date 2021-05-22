@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import projeto.model.MovimentoConta;
 import projeto.model.Transacao;
 import projeto.service.TransacaoService;
 
@@ -22,10 +23,15 @@ public class TransacaoController {
 
 	@Autowired
 	private TransacaoService transacaoService;
+	
+	@PostMapping("/depositar")
+	public ResponseEntity<Transacao> PostDepositar(@RequestBody MovimentoConta deposito) throws Exception {
+		return ResponseEntity.status(HttpStatus.CREATED).body(transacaoService.depositar(deposito));
+	}
 
-	@PostMapping("/cadastrar")
-	public ResponseEntity<Transacao> PostCadastrar(@RequestBody Transacao transacao) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(transacaoService.cadastrarTransacao(transacao));
+	@PostMapping("/sacar")
+	public ResponseEntity<Transacao> PostSacar(@RequestBody MovimentoConta saque) throws Exception {
+		return ResponseEntity.status(HttpStatus.CREATED).body(transacaoService.sacar(saque));
 	}
 	
 	@GetMapping

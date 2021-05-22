@@ -1,5 +1,6 @@
 package projeto.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,18 @@ public class ContaController {
 	private ContaService contaService;
 
 	@PostMapping("/cadastrar")
-	public ResponseEntity<Conta> PostCadastrar(@RequestBody Conta conta) {
+	public ResponseEntity<Conta> PostCadastrar(@RequestBody Conta conta) throws ParseException {
 		return ResponseEntity.status(HttpStatus.CREATED).body(contaService.cadastrarConta(conta));
+	}
+
+	@PostMapping("/bloquear")
+	public ResponseEntity<Conta> PostBloquear(@RequestBody Conta conta) throws Exception {
+		return ResponseEntity.status(HttpStatus.CREATED).body(contaService.bloquearConta(conta));
+	}
+
+	@PostMapping("/desbloquear")
+	public ResponseEntity<Conta> PostDesbloquear(@RequestBody Conta conta) throws Exception {
+		return ResponseEntity.status(HttpStatus.CREATED).body(contaService.desbloquearConta(conta));
 	}
 
 	@GetMapping
