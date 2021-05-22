@@ -18,6 +18,8 @@ public class ContaService {
 	@Autowired
 	private ContaRepository contaRepository;
 
+	// função que cadastra uma nova conta com saldo zerado e limite diário 500.
+	// a data de criação é colocada automaticamente, junto com a ativação da conta
 	public Conta cadastrarConta(Conta conta) throws ParseException {
 		conta.setSaldo(0);
 		conta.setLimiteSaqueDiario(500);
@@ -38,10 +40,12 @@ public class ContaService {
 		return mudarStatusConta(conta, true);
 	}
 	
+	// função que muda o status de uma conta para bloqueada ou desbloqueada
+	// é verificado se a conta existe no banco de dados antes de fazer a alteração
 	private Conta mudarStatusConta(Conta conta, boolean status) throws Exception {
 		Optional<Conta> c = contaRepository.findById(conta.getIdConta());
 		Conta contaAtual = contaRepository.buscaContaPorIdConta(conta.getIdConta());
-		if (c.isPresent()) {
+		if (c.isPresent())
 			if (contaAtual.isFlagAtivo() == !status) {
 				contaAtual.setFlagAtivo(status);
 				contaRepository.save(contaAtual);
@@ -50,7 +54,7 @@ public class ContaService {
 					throw new Exception("A conta já está desbloqueada!");
 				else
 					throw new Exception("A conta já está bloqueada!");
-		} else 
+		else 
 			throw new Exception("Conta não cadastrada!");
 		return contaAtual;
 	}

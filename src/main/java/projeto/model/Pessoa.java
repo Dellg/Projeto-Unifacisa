@@ -27,7 +27,7 @@ public class Pessoa {
 	@Column(name = "data_nascimento", nullable = false)
 	private Date dataNascimento;
 
-	// getters e setters
+	// Getters e Setters
 	public Long getIdPessoa() {
 		return idPessoa;
 	}

@@ -30,7 +30,7 @@ public class Transacao {
 	@Column(name = "tipo_transacao", nullable = false)
 	private String tipoTransacao;
 
-	// getters e setters
+	// Getters e Setters
 	public Long getIdTransacao() {
 		return idTransacao;
 	}
