@@ -1,8 +1,8 @@
 # Projeto Unifacisa
-Sistema de Gestão de Contas Bancárias é um projeto desenvolvido em Java utilizando o <i>framework</i> Spring Boot e o banco de dados MySQL.
+Sistema de Gestão de Contas Bancárias é um projeto desenvolvido em [Java](https://www.java.com/) utilizando o <i>framework</i> [Spring Boot](https://spring.io/) e o banco de dados [MySQL](https://www.mysql.com/).
 
 ## Estrutura do Projeto
-O projeto foi desenvolvido no Eclipse e usa o sistema de organização <b>Package by Layer</b>: 
+O projeto foi desenvolvido no [Eclipse](https://www.eclipse.org/) e usa o sistema de organização <b>Package by Layer</b>: 
 * <i>model:</i>
   * Pacote que contém os modelos Pessoa, Conta, Transacao e MovimentoConta.
 * <i>controller:</i>
@@ -51,7 +51,7 @@ Long | Long | Integer | Double | Date
   * método Get que recebe como parâmetros o "idConta", a "dataInicio" e a "dataFim".
 
 ## Rodando o Sistema
-Ao rodar o Wamp e executar o sistema pelo Eclipse, é possível utilizar o [Postman](https://www.postman.com/) para realizar a execução das rotas através da porta 8081. Seguem algumas imagens mostrando como executar cada <i>path</i>.
+Ao rodar o [Wampserver](https://www.wampserver.com/) e executar o sistema pelo Eclipse, é possível utilizar o [Postman](https://www.postman.com/) para realizar a execução das rotas através da porta 8081. Seguem algumas imagens mostrando como executar cada <i>path</i>.
 
 * Exemplo de cadastro de uma pessoa e resposta esperada:
 ![image](https://user-images.githubusercontent.com/26439598/119240153-61441280-bb24-11eb-97aa-b0ccfb0060f0.png)
